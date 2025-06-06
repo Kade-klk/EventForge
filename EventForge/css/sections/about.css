@@ -1,0 +1,108 @@
+.about-us {
+  display: flex;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.about-us__image {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--color-white);
+  position: relative;
+}
+
+.about-us__image div {
+  padding: 32px 64px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.about-us__image-event3 {
+  border-bottom: 8px solid var(--color-creamson);
+  background-image: url("../../assets/event_bg1.png"); /* Imagen genérica para eventos */
+}
+
+.about-us__image-event2 {
+  background-image: url("../../assets/event_bg2.png"); /* Imagen genérica para eventos */
+}
+
+.about-us__image-event3 img,
+.about-us__image-event2 img {
+  width: 100%;
+  max-width: 300px; /* Tamaño más flexible */
+  height: auto;
+  object-fit: cover;
+}
+
+.about-us__button {
+  position: absolute;
+  right: 0;
+  padding: 12px 32px;
+  min-height: 64px;
+  background: var(--secondary-color);
+  border-radius: 32px 0 0 32px;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font-family: var(--plus-jakarta-sans);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.about-us__button:hover {
+  background: var(--primary-color);
+}
+
+.about-us__button img {
+  object-fit: contain;
+  margin-left: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.about-us__content {
+  padding: 64px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Media Queries Responsivos */
+@media (max-width: 1024px) {
+  .about-us__image-event3 img,
+  .about-us__image-event2 img {
+    max-width: 250px;
+  }
+
+  .about-us__content {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .about-us__image div {
+    padding: 24px 32px;
+  }
+
+  .about-us__button {
+    padding: 10px 24px;
+    min-height: 54px;
+    font-size: 16px;
+  }
+}

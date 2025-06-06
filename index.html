@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/imagen.png" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>EventForge</title>
+  </head>
+  <body>
+    <header>
+      <nav class="header__nav">
+        <div class="header__logo">
+          <h4 data-aos="fade-down">EventForge</h4>
+          <div class="header__logo-overlay"></div>
+        </div>
+
+        <ul class="header__menu" data-aos="fade-down">
+          <li><a href="eventos/eventos.html">Eventos</a></li>
+          <li><a href="registration/login.html">Login</a></li>
+          <li><a href="#about-us">Quiénes Somos</a></li>
+          <li><img src="assets/search.svg" alt="Ícono de búsqueda" /></li>
+          <li><span id="username-loged"></span></li>
+        </ul>
+
+        <ul class="header__menu-mobile" data-aos="fade-down">
+          <li><img src="assets/menu.svg" alt="Menú móvil" /></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-image">
+        <!-- Imagen principal del hero -->
+        <img
+          src="assets/evento-1.jpg"
+          alt="Grupo de personas socializando en un evento"
+          data-aos="fade-up"
+        />
+        <h2 data-aos="fade-up">
+          Con<br />
+          ec<br />
+          ta
+        </h2>
+
+        <div class="hero-image__overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-content-info" data-aos="fade-left">
+          <h1>Forjar conexiones a través de eventos</h1>
+          <p>En EventForge creemos que las mejores relaciones comienzan cara a cara.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-us" id="about-us">
+      <div class="about-us__image">
+        <!-- Imagen secundaria about us -->
+        <div class="about-us__image-event3">
+          <img src="/assets/evento-3.jpeg" alt="Taller educativo" data-aos="fade-right" />
+        </div>
+
+        <button class="about-us__button">
+          Quiénes Somos
+          <img src="assets/arrow-up-right.svg" alt="Más información" />
+        </button>
+
+        <!-- Imagen principal about us -->
+        <div class="about-us__image-event2">
+          <img src="assets/evento-2.jpg" alt="Evento al aire libre" data-aos="fade-right" />
+        </div>
+      </div>
+
+      <div class="about-us__content" data-aos="fade-left">
+        <p class="event__subtitle">Nuestra misión</p>
+        <h3 class="event__title">Crear y encontrar los mejores eventos</h3>
+        <p class="event__description">Espacios seguros y diversos para conectar y generar relaciones significativas.</p>
+      </div>
+    </section>
+
+
+    <footer class="footer flex-between">
+      <h3 class="footer__brand">
+        <span>Event</span>Forge
+      </h3>
+
+      <nav class="footer__nav">
+        <a href="#featured">Destacados</a>
+        <a href="#events">Eventos</a>
+        <a href="registration/login.html">Login</a>
+        <a href="#about-us">Quiénes Somos</a>
+      </nav>
+
+    <script src="js/script.js" type="module"></script>
+  </body>
+</html>

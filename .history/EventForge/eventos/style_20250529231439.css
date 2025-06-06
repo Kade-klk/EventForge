@@ -1,0 +1,406 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    background: linear-gradient(90deg, #fff0de, #4a6ab1);
+    min-height: 100vh;
+    animation: gradientAnimation 15s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+section:nth-child(1) { animation-delay: 0.1s; }
+section:nth-child(2) { animation-delay: 0.2s; }
+section:nth-child(3) { animation-delay: 0.3s; }
+section:nth-child(4) { animation-delay: 0.4s; }
+
+h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #4a6ab1;
+    border-radius: 3px;
+    animation: expand 0.8s ease-out;
+}
+
+@keyframes expand {
+    from { width: 0; }
+    to { width: 60px; }
+}
+
+.eventos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.evento-item {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 18px;
+    border-left: 5px solid #4a6ab1; /* Color principal */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transform: scale(0.95);
+    opacity: 0;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transition: all 0.3s ease;
+}
+
+@keyframes popIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.evento-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(74, 106, 177, 0.2); /* Color con transparencia */
+}
+
+.evento-item h4 {
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.evento-item p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #555;
+}
+
+.form-crear-evento form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-crear-evento input,
+.form-crear-evento button,
+.form-crear-evento textarea,
+.form-crear-evento select {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #f8f9ff;
+}
+
+.form-crear-evento textarea {
+    height: auto;
+    min-height: 120px;
+    max-height: 200px;
+}
+
+.form-crear-evento input:focus,
+.form-crear-evento textarea:focus,
+.form-crear-evento select:focus {
+    border-color: #4a6ab1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 106, 177, 0.2);
+    background: #fff;
+}
+
+.form-crear-evento button {
+    background-color: #4a6ab1;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(74, 106, 177, 0.3);
+    padding: 14px 16px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-crear-evento button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.form-crear-evento button:hover {
+    background-color: #3a5a9e;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(74, 106, 177, 0.4);
+}
+
+.form-crear-evento button:hover::before {
+    left: 100%;
+}
+
+input.valid, textarea.valid {
+    border-color: #4caf50;
+    animation: pulseGreen 1s ease;
+}
+
+@keyframes pulseGreen {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+}
+
+input.invalid, textarea.invalid {
+    border-color: #e53935;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+span.error {
+    color: #e53935;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.inscrito-label {
+    color: #4a6ab1;
+    font-weight: bold;
+    margin-top: 5px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+#mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+    background: rgba(74, 106, 177, 0.1);
+    border-left: 4px solid #4a6ab1;
+}
+
+/* Botón de inscripción */
+.btn-inscribirse {
+    padding: 10px 20px;
+    background: #4a6ab1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(74, 106, 177, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-inscribirse::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.btn-inscribirse:hover {
+    background: #3a5a9e;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(74, 106, 177, 0.3);
+}
+
+.btn-inscribirse:hover::before {
+    left: 100%;
+}
+
+.btn-inscribirse:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Decoración */
+.decorative-circle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 240, 222, 0.3);
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(10px, -10px); }
+    50% { transform: translate(-10px, 10px); }
+    75% { transform: translate(10px, 10px); }
+}
+
+/* Botón de cerrar para eventos */
+.close-btn-evento {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #4a6ab1;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    transition: all 0.3s;
+    z-index: 3;
+    animation: rotateIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+    transform: rotate(0);
+}
+
+@keyframes rotateIn {
+    from { opacity: 0; transform: rotate(-180deg); }
+    to { opacity: 1; transform: rotate(0); }
+}
+
+.close-btn-evento:hover {
+    background: #3a5a99;
+    transform: rotate(90deg);
+}
+
+.close-btn-evento:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+/* Efecto de pulso para botones */
+.btn-pulse {
+    position: relative;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Mensajes de error ajustados */
+.error-message {
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+    text-align: left;
+    padding-left: 5px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        gap: 25px;
+    }
+
+    section {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .form-crear-evento input,
+    .form-crear-evento button,
+    .form-crear-evento textarea {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .evento-item {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        gap: 20px;
+    }
+
+    section {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .evento-item p {
+        font-size: 14px;
+    }
+
+    .form-crear-evento button,
+    .btn-inscribirse {
+        padding: 12px 16px;
+    }
+}

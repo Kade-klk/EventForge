@@ -1,0 +1,440 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reset básico y fuente global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #fff0de, #4a6ab1);
+    overflow-x: hidden; /* Previene el scroll horizontal no deseado */
+    animation: gradientAnimation 15s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    position: relative;
+    width: 850px;
+    height: auto; /* <--- CLAVE: Permitir que el contenedor se ajuste a su contenido */
+    min-height: 550px; /* Mantener una altura mínima para el diseño inicial */
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    overflow: hidden; /* <--- Mantener hidden para el efecto visual, pero el 'height: auto' lo manejará */
+    z-index: 100;
+}
+
+/* Efecto de activación del contenedor */
+.container.active {
+    transform: translateX(0); /* Reiniciar si hay transformación previa */
+}
+
+/* Base para cajas de formulario y paneles de alternancia */
+.form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Organiza los elementos verticalmente */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    padding: 40px;
+    background: #fff;
+    transition: all 0.6s ease-in-out;
+}
+
+.form-box.login {
+    left: 0;
+    z-index: 2;
+}
+
+/* Estado activo del formulario de inicio de sesión */
+.container.active .form-box.login {
+    transform: translateX(-100%);
+    opacity: 0; /* Ocultar completamente */
+}
+
+.form-box.register {
+    right: 0; /* Posicionar a la derecha por defecto */
+    transform: translateX(100%); /* Desplazar fuera de la vista */
+    z-index: 1; /* Estará detrás del login inicialmente */
+    overflow-y: auto; /* Asegura el scroll dentro del formulario si es necesario */
+    scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none; /* Oculta la barra de desplazamiento en IE/Edge */
+}
+
+.form-box.register::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en WebKit (Chrome, Safari) */
+}
+
+/* Estado activo del formulario de registro */
+.container.active .form-box.register {
+    transform: translateX(0); /* Mover a la posición visible */
+    z-index: 2; /* Ponerlo al frente */
+    opacity: 1; /* Asegurar visibilidad */
+}
+
+.form-box h1 {
+    font-size: 30px;
+    color: #4a6ab1;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%; /* Ocupa el ancho completo del form-box */
+    height: 40px;
+    margin: 15px 0; /* Reducido un poco para dar más espacio */
+    border-bottom: 2px solid #4a6ab1;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    padding: 0 35px 0 5px;
+}
+
+.input-box input::placeholder {
+    color: #888; /* Color de placeholder */
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 18px;
+    color: #4a6ab1;
+    line-height: 40px;
+}
+
+.forgot-link {
+    margin: -10px 0 15px; /* Ajuste para espacio */
+    font-size: 14px;
+    text-align: center;
+}
+
+.forgot-link a {
+    color: #4a6ab1;
+    text-decoration: none;
+}
+
+.forgot-link a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #4a6ab1;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 20px; /* Espacio para el botón */
+}
+
+.btn:hover {
+    background: #5a7bd1;
+}
+
+/* Estilos para el texto de error de validación */
+.validation-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 5px; /* Asegurar que no se pegue al siguiente input */
+    width: 100%; /* Asegurar que ocupe el ancho y no afecte el layout */
+    text-align: left; /* Alineación del texto */
+}
+
+
+/* Toggle Box (Paneles izquierdo y derecho) */
+.toggle-box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #4a6ab1, #324c8b);
+    border-radius: 0 30px 30px 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+    z-index: 5; /* Asegura que esté por encima de los formularios */
+    display: flex; /* Para centrar contenido */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+/* Efecto de desplazamiento del toggle-box */
+.container.active .toggle-box {
+    transform: translateX(-100%);
+    border-radius: 30px 0 0 30px; /* Cambiar bordes al moverse */
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 30px; /* Padding para el texto */
+}
+
+.toggle-left {
+    transform: translateX(-200%); /* Oculto a la izquierda */
+    transition: all 0.6s ease-in-out;
+    opacity: 0; /* Ocultar inicialmente */
+}
+
+.container.active .toggle-left {
+    transform: translateX(0); /* Mostrar cuando activo */
+    opacity: 1;
+}
+
+.toggle-right {
+    transform: translateX(0); /* Visible inicialmente */
+    transition: all 0.6s ease-in-out;
+    opacity: 1; /* Mostrar inicialmente */
+}
+
+.container.active .toggle-right {
+    transform: translateX(200%); /* Ocultar cuando activo */
+    opacity: 0;
+}
+
+.toggle-panel h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.toggle-panel p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.toggle-panel .btn {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    width: 70%; /* Ajuste para el botón */
+}
+
+.toggle-panel .btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botón de cerrar (si aún lo usas) */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #4a6ab1;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    transition: all 0.3s;
+    z-index: 3;
+    animation: rotateIn 0.8s ease-out 1.4s forwards;
+    opacity: 0;
+}
+
+.close-btn:hover {
+    background: #5a7bd1;
+    transform: rotate(90deg);
+}
+
+/* Animaciones */
+@keyframes rotateIn {
+    0% { transform: rotate(-200deg); opacity: 0; }
+    100% { transform: rotate(0deg); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ================== MEDIA QUERIES (Responsividad) ================== */
+
+/* Para pantallas más pequeñas (máximo 650px de ancho) */
+@media screen and (max-width: 650px) {
+    body {
+        min-height: auto; /* Permite que el cuerpo se ajuste al contenido */
+        padding: 20px; /* Padding para evitar que el contenido toque los bordes */
+    }
+
+    .container {
+        width: 100%; /* Ocupa todo el ancho */
+        max-width: 400px; /* Limita el ancho máximo en pantallas más pequeñas */
+        height: auto; /* <--- CLAVE: Se ajusta al contenido */
+        min-height: 600px; /* Nueva altura mínima para dispositivos móviles para asegurar espacio */
+        flex-direction: column; /* Apila los elementos verticalmente */
+        overflow: hidden; /* Mantener hidden para animaciones */
+    }
+
+    .form-box {
+        width: 100%; /* Ocupa el ancho completo */
+        position: relative; /* Ajusta posicionamiento para apilamiento */
+        padding: 30px; /* Ajuste de padding */
+        height: 85%; /* <--- CLAVE: Dar más altura al form-box para el registro */
+    }
+
+    .form-box.login {
+        transform: translateY(0); /* Reiniciar transformación */
+        opacity: 1; /* Visible por defecto */
+        z-index: 2;
+    }
+
+    .container.active .form-box.login {
+        transform: translateY(-100%); /* Desplazar hacia arriba para ocultar */
+        opacity: 0;
+    }
+
+    .form-box.register {
+        transform: translateY(100%); /* Oculto abajo inicialmente */
+        height: 85%; /* <--- CLAVE: Mismo ajuste de altura que el login */
+        z-index: 1;
+    }
+
+    .container.active .form-box.register {
+        transform: translateY(0); /* Mostrar al activarse */
+        z-index: 2;
+        opacity: 1;
+    }
+
+    .toggle-box {
+        position: relative; /* Ajusta posicionamiento para apilamiento */
+        left: 0;
+        width: 100%; /* Ocupa todo el ancho */
+        height: 15%; /* <--- CLAVE: Parte restante del contenedor */
+        border-radius: 0 0 30px 30px; /* Bordes inferiores */
+        transform: translateY(0); /* Reiniciar transformación */
+        order: 2; /* Ponerlo debajo de los formularios */
+    }
+
+    .container.active .toggle-box {
+        transform: translateY(-100%); /* Desplazar hacia arriba para mostrar el login/register */
+        border-radius: 30px 30px 0 0; /* Bordes superiores */
+        order: 1; /* Ponerlo arriba cuando está activo */
+    }
+
+    .toggle-panel {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .toggle-left {
+        transform: translateY(-200%); /* Oculto arriba */
+        opacity: 0;
+    }
+
+    .container.active .toggle-left {
+        transform: translateY(0); /* Mostrar */
+        opacity: 1;
+    }
+
+    .toggle-right {
+        transform: translateY(0); /* Visible */
+        opacity: 1;
+    }
+
+    .container.active .toggle-right {
+        transform: translateY(200%); /* Ocultar */
+        opacity: 0;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .form-box h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        margin: 10px 0; /* Más ajustado */
+    }
+
+    .toggle-panel h1 {
+        font-size: 24px;
+    }
+
+    .toggle-panel p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Para pantallas aún más pequeñas (máximo 400px de ancho) */
+@media screen and (max-width: 400px) {
+    .container {
+        min-height: 580px; /* Ligeramente más bajo, pero puedes ajustarlo */
+    }
+
+    .form-box {
+        padding: 20px;
+    }
+
+    .form-box h1 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .input-box {
+        margin: 8px 0;
+    }
+
+    .forgot-link a {
+        font-size: 12px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 20px;
+    }
+
+    .toggle-panel p {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Parcha2</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="recover-form" class="form-box forgot-password">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <form action="">
+                <h1>Ingresa el código</h1>
+                <div class="input-box">
+                    <input id="codigo" type="text" placeholder="Código" required>
+                    <i class='bx bx-user'></i>
+                </div>
+                <div id="mensaje" style="color: rgb(21, 255, 0); font-size: 12px; margin-top: 2px;"></div>
+                <button id="button-code" type="button" class="btn">Enviar código de recuperación</button>
+            </form>
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>

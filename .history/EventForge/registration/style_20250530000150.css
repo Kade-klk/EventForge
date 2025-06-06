@@ -1,0 +1,557 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #fff0de, #4a6ab1);
+    overflow-x: hidden;
+    animation: gradientAnimation 15s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    position: relative;
+    width: 850px;
+    height: 550px; /* Aumentado de 550px a 650px */
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+    margin: 20px;
+    overflow: hidden;
+    animation: containerEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes containerEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-box {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-align: center;
+    padding: 30px; /* Reducido de 40px */
+    z-index: 1;
+    transition: right 0.6s ease-in-out 1.2s, visibility 0s 1.2s;
+}
+
+.form-box.register {
+    visibility: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    align-items: flex-start; /* Alinear al inicio para más espacio */
+    padding-top: 70px; /* Más espacio arriba */
+}
+
+.form-box.register::-webkit-scrollbar {
+    display: none;
+}
+
+.container.active .form-box {
+    right: 50%;
+}
+
+.container.active .form-box.register {
+    visibility: visible;
+    transition: 0s;
+}
+
+form {
+    width: 100%;
+    animation: formAppear 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes formAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container h1 {
+    font-size: 32px; /* Reducido de 34px */
+    margin-bottom: 15px; /* Reducido de 20px */
+    animation: fadeIn 0.6s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.input-box {
+    position: relative;
+    margin: 20px 0; /* Reducido de 30px */
+}
+
+.input-box:nth-child(1) { animation: inputSlide 0.6s ease-out 0.7s forwards; }
+.input-box:nth-child(2) { animation: inputSlide 0.6s ease-out 0.8s forwards; }
+.input-box:nth-child(3) { animation: inputSlide 0.6s ease-out 0.9s forwards; }
+.input-box:nth-child(4) { animation: inputSlide 0.6s ease-out 1.0s forwards; }
+.input-box:nth-child(5) { animation: inputSlide 0.6s ease-out 1.1s forwards; }
+.input-box:nth-child(6) { animation: inputSlide 0.6s ease-out 1.2s forwards; }
+
+@keyframes inputSlide {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.input-box {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 45px 12px 15px; /* Padding reducido */
+    background: #eee;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    outline: none;
+    font-size: 15px; /* Reducido de 16px */
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.input-box input:hover {
+    border-color: rgba(74, 106, 177, 0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.input-box input:focus {
+    border-color: #4a6ab1;
+    background: #f8f9ff;
+    box-shadow: 0 5px 15px rgba(74, 106, 177, 0.2);
+    transform: translateY(-2px);
+}
+
+.input-box input::placeholder {
+    color: #888;
+    font-weight: 400;
+    transition: all 0.3s;
+}
+
+.input-box input:focus::placeholder {
+    opacity: 0.5;
+    transform: translateY(-5px);
+}
+
+.input-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px; /* Reducido de 20px */
+    color: #888;
+    transition: all 0.3s ease;
+}
+
+.input-box:hover i {
+    color: #4a6ab1;
+    transform: translateY(-50%) scale(1.15); /* Efecto más sutil */
+}
+
+.forgot-link {
+    margin: -10px 0 10px; /* Margen reducido */
+    animation: fadeIn 0.6s ease-out 1.1s forwards;
+    opacity: 0;
+}
+
+.forgot-link a {
+    font-size: 14px; /* Reducido de 14.5px */
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.forgot-link a:hover {
+    color: #4a6ab1;
+}
+
+.forgot-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #4a6ab1;
+    transition: width 0.3s ease;
+}
+
+.forgot-link a:hover::after {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+    height: 45px; /* Reducido de 48px */
+    background: #4a6ab1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    border: none;
+    cursor: pointer;
+    font-size: 15px; /* Reducido de 16px */
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s;
+    animation: fadeIn 0.6s ease-out 1.2s forwards;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    margin-top: 5px; /* Espacio adicional reducido */
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background: #3a5a99;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(74, 106, 177, 0.4);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+.container p {
+    font-size: 14px; /* Reducido de 14.5px */
+    margin: 10px 0; /* Reducido de 15px */
+    animation: fadeIn 0.6s ease-out 1.3s forwards;
+    opacity: 0;
+}
+
+.toggle-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.toggle-box::before {
+    content: '';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background: #4a6ab1;
+    border-radius: 150px;
+    z-index:2;
+    transition: 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.container.active .toggle-box::before {
+    left: 50%;
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: .6s ease-in-out;
+    padding: 20px; /* Padding añadido */
+}
+
+.toggle-panel.toggle-left{
+    left: 0;
+    transition-delay: 1.2s;
+}
+
+.container.active .toggle-panel.toggle-left{
+    left: -50%;
+    transition-delay: .6s;
+}
+
+.toggle-panel.toggle-right {
+    right: -50%;
+    transition-delay: .6s;
+}
+
+.container.active .toggle-panel.toggle-right {
+    right: 0;
+    transition-delay: 1.2s;
+}
+
+.toggle-panel h1 {
+    font-size: 28px; /* Reducido de 32px */
+    margin-bottom: 8px; /* Reducido de 10px */
+    animation: fadeIn 0.6s ease-out 0.3s forwards;
+    opacity: 0;
+}
+
+.toggle-panel p {
+    margin-bottom: 15px; /* Reducido de 20px */
+    text-align: center;
+    max-width: 80%;
+    animation: fadeIn 0.6s ease-out 0.4s forwards;
+    opacity: 0;
+    font-size: 14px; /* Tamaño ajustado */
+}
+
+.toggle-panel .btn {
+    width: 150px; /* Reducido de 160px */
+    height: 42px; /* Reducido de 46px */
+    background: transparent;
+    border: 2px solid #fff;
+    box-shadow: none;
+    animation: fadeIn 0.6s ease-out 0.5s forwards;
+    opacity: 0;
+    font-size: 14px; /* Tamaño ajustado */
+}
+
+.toggle-panel .btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        height: auto;
+        min-height: 90vh;
+        margin: 10px;
+        border-radius: 20px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 24px;
+    }
+
+    .toggle-panel p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        height: calc(100vh - 20px);
+        min-height: 600px; /* Altura mínima aumentada */
+    }
+
+    .form-box {
+        bottom: 0;
+        width: 100%;
+        height: 75%; /* Aumentado de 70% */
+        padding: 25px;
+    }
+
+    .container.active .form-box {
+        right: 0;
+        bottom: 25%;
+        height: 75%; /* Aumentado para más espacio */
+    }
+
+    .toggle-box::before {
+        left: 0;
+        top: -250%;
+        width: 100%;
+        height: 280%;
+        border-radius: 20vw;
+    }
+
+    .container.active .toggle-box::before {
+        left: 0;
+        top: 75%;
+    }
+
+    .toggle-panel {
+        width: 100%;
+        height: 25%; /* Ajustado para dar más espacio al formulario */
+    }
+
+    .toggle-panel.toggle-left {
+        top: 0;
+    }
+
+    .container.active .toggle-panel.toggle-left {
+        left: 0;
+        top: -25%; /* Ajustado para coincidir con la altura */
+    }
+
+    .toggle-panel.toggle-right{
+        right: 0;
+        bottom: -25%; /* Ajustado para coincidir con la altura */
+    }
+
+    .container.active .toggle-panel.toggle-right {
+        bottom: 0;
+    }
+
+    /* Ajustes adicionales para formulario de registro */
+    .form-box.register {
+        padding-top: 60px; /* Más espacio en la parte superior */
+    }
+
+    .input-box {
+        margin: 15px 0; /* Margen reducido */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        border-radius: 15px;
+        min-height: 95vh;
+    }
+
+    .form-box {
+        padding: 20px;
+    }
+
+    .input-box input {
+        padding: 10px 40px 10px 12px;
+        font-size: 14px;
+    }
+
+    .input-box i {
+        right: 12px;
+        font-size: 16px;
+    }
+
+    .btn {
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .toggle-panel .btn {
+        width: 130px;
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .container h1 {
+        font-size: 24px; /* Reducido para móviles */
+        margin: 5px 0 15px; /* Ajuste de márgenes */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .form-box {
+        padding: 15px;
+    }
+
+    .container h1 {
+        font-size: 20px;
+        margin: 0 0 15px;
+    }
+
+    .input-box {
+        margin: 12px 0;
+    }
+
+    .forgot-link a {
+        font-size: 12px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 20px;
+    }
+
+    .toggle-panel p {
+        font-size: 12px;
+    }
+}
+
+/* Botón de cerrar */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #4a6ab1;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    transition: all 0.3s;
+    z-index: 3;
+    animation: rotateIn 0.8s ease-out 1.4s forwards;
+    opacity: 0;
+    transform: rotate(0);
+}
+
+@keyframes rotateIn {
+    from { opacity: 0; transform: rotate(-180deg); }
+    to { opacity: 1; transform: rotate(0); }
+}
+
+.close-btn:hover {
+    background: #3a5a99;
+    transform: rotate(90deg);
+}
+
+.close-btn:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+/* Mensajes de error ajustados */
+#mensajeCedula,
+#mensajeUsername,
+#mensajeEmail,
+#mensajeTelefono,
+#mensajePassword,
+#mensajeUsernameLog,
+#mensajePasswordLog {
+    color: red;
+    font-size: 11px; /* Tamaño reducido */
+    margin-top: 2px;
+    margin-bottom: 5px; /* Espacio reducido */
+    text-align: left;
+    padding-left: 5px;
+}

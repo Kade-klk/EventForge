@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Evento</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .nav-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .nav-buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+    .seccion {
+      display: none;
+    }
+    .seccion.active {
+      display: block;
+    }
+    .evento-item {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="nav-buttons">
+      <button onclick="mostrarSeccion('eventos')">Eventos Disponibles</button>
+      <button onclick="mostrarSeccion('mis')">Mis Eventos</button>
+      <button onclick="mostrarSeccion('inscritos')">Mis Eventos Inscritos</button>
+      <button onclick="mostrarSeccion('crear')">Crear Evento</button>
+    </div>
+
+    <section id="seccion-eventos" class="seccion active eventos-cargados">
+      <h2>Eventos</h2>
+      <div id="listaEventos" class="eventos-lista"></div>
+    </section>
+
+    <section id="seccion-mis" class="seccion mis-eventos-cargados">
+      <h2>Mis eventos</h2>
+      <div id="listamisEventos" class="eventos-lista"></div>
+    </section>
+
+    <section id="seccion-inscritos" class="seccion mis-eventos-cargados">
+      <h2>Mis eventos inscritos</h2>
+      <div id="listamisEventosInscritos" class="eventos-lista"></div>
+    </section>
+
+    <section id="seccion-crear" class="seccion form-crear-evento">
+      <h2>Crear Nuevo Evento</h2>
+      <form id="crearEventoForm">
+        <input type="hidden" id="eventoIdEditar" />
+        <input type="text" id="titulo" placeholder="Título del evento" oninput="validar_titulo(this)" required />
+        <span class="error" id="error_titulo"></span>
+
+        <textarea id="descripcion" placeholder="Descripción del evento" oninput="validar_descripcion(this)" required></textarea>
+        <span class="error" id="error_descripcion"></span>
+
+        <input type="text" id="lugar" placeholder="Lugar del evento" oninput="validar_lugar(this)" required />
+        <span class="error" id="error_lugar"></span>
+
+        <input type="datetime-local" id="fechaEvento" oninput="validar_fecha(this)" required />
+        <span class="error" id="error_fechaEvento"></span>
+
+        <input type="number" id="capacidad" placeholder="Capacidad" oninput="validar_capacidad(this)" required />
+        <span class="error" id="error_capacidad"></span>
+
+        <button type="submit" id="btnCrearActualizar">Crear Evento</button>
+      </form>
+      <p id="mensaje"></p>
+    </section>
+  </main>
+
+  <script>
+  function mostrarSeccion(seccion) {
+    const secciones = ['eventos', 'mis', 'inscritos', 'crear'];
+    secciones.forEach(id => {
+      const el = document.getElementById('seccion-' + id);
+      if (el) {
+        // Mostrar esta sección si coincide
+        el.classList.toggle('active', id === seccion);
+
+        // Si es la sección de crear y la vamos a activar, limpiamos
+        if (id === 'crear' && id === seccion) {
+          limpiarFormularioEvento(); // Llama tu función aquí
+        }
+      }
+    });
+  }
+</script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBpq_htPz4UAL2P_QxJguS2ODFdT8mEK3w",
+      authDomain: "eventforge-6df64.firebaseapp.com",
+      databaseURL: "https://eventforge-6df64-default-rtdb.firebaseio.com",
+      projectId: "eventforge-6df64",
+      storageBucket: "eventforge-6df64.appspot.com",
+      messagingSenderId: "709211380182",
+      appId: "1:709211380182:web:9b5825c809b9c7488aec77"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const cedula = sessionStorage.getItem('Cedula');
+    const listaEventos = document.getElementById('listaEventos');
+    const listamisEventos = document.getElementById('listamisEventos');
+    const listamisEventosInscritos = document.getElementById('listamisEventosInscritos');
+
+    function mostrarMensaje(msg, success) {
+      const el = document.getElementById("mensaje");
+      el.textContent = msg;
+      el.style.color = success ? "green" : "red";
+    }
+
+    document.getElementById("crearEventoForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const titulo = document.getElementById("titulo").value;
+      const descripcion = document.getElementById("descripcion").value;
+      const lugar = document.getElementById("lugar").value;
+      const fechaCompleta = document.getElementById("fechaEvento").value;
+      const capacidad = parseInt(document.getElementById("capacidad").value);
+      const eventoId = document.getElementById("eventoIdEditar").value;
+
+      const [fecha_evento, hora] = fechaCompleta.split("T");
+
+      const datosEvento = {
+        titulo,
+        descripcion,
+        lugar,
+        fecha_evento,
+        hora,
+        capacidad,
+        cedula,
+      };
+
+      const eventoRef = ref(database, `eventos/${eventoId || Date.now()}`);
+
+      set(eventoRef, datosEvento)
+        .then(() => {
+          mostrarMensaje(eventoId ? "Evento actualizado correctamente." : "Evento creado exitosamente.", true);
+          document.getElementById("crearEventoForm").reset();
+          document.getElementById("eventoIdEditar").value = "";
+          document.getElementById("btnCrearActualizar").textContent = "Crear Evento";
+          cargarmisEventos();
+          cargarEventos();
+        })
+        .catch((err) => {
+          mostrarMensaje("Error al guardar el evento.", false);
+          console.error(err);
+        });
+    });
+
+    window.editarEvento = function (id_evento) {
+      const eventoRef = ref(database, `eventos/${id_evento}`);
+      get(eventoRef).then(snapshot => {
+        const evento = snapshot.val();
+        if (!evento) return;
+
+        document.getElementById("titulo").value = evento.titulo;
+        document.getElementById("descripcion").value = evento.descripcion;
+        document.getElementById("lugar").value = evento.lugar;
+        document.getElementById("fechaEvento").value = `${evento.fecha_evento}T${evento.hora}`;
+        document.getElementById("capacidad").value = evento.capacidad;
+        document.getElementById("eventoIdEditar").value = id_evento;
+        document.getElementById("btnCrearActualizar").textContent = "Actualizar Evento";
+
+        mostrarSeccion("crear");
+      });
+    }
+
+    function cargarmisEventos() {
+      if (!cedula) return;
+      const eventosRef = ref(database, 'eventos');
+      get(eventosRef).then(snapshot => {
+        listamisEventos.innerHTML = '';
+        snapshot.forEach(child => {
+          const evento = child.val();
+          const id_evento = child.key;
+          if (evento.cedula === cedula) {
+            const div = document.createElement('div');
+            div.classList.add('evento-item');
+            div.innerHTML = `
+              <h4>${evento.titulo}</h4>
+              <p>Descripción: ${evento.descripcion}</p>
+              <p>Lugar: ${evento.lugar}</p>
+              <p>Fecha: ${evento.fecha_evento} - Hora: ${evento.hora}</p>
+              <p>Capacidad: ${evento.capacidad}</p>
+              <button onclick="editarEvento('${id_evento}')" class="btn-editar">Editar</button>
+            `;
+            listamisEventos.appendChild(div);
+          }
+        });
+      });
+    }
+
+    function cargarEventos() {
+  const eventosRef = ref(database, 'eventos');
+  const inscripcionesRef = ref(database, 'inscripciones');
+
+  Promise.all([get(eventosRef), get(inscripcionesRef)]).then(([eventosSnap, inscripcionesSnap]) => {
+    listaEventos.innerHTML = '';
+
+    const eventosInscritos = new Set();
+    if (inscripcionesSnap.exists()) {
+      inscripcionesSnap.forEach(evento => {
+        if (evento.hasChild(cedula)) {
+          eventosInscritos.add(evento.key);
+        }
+      });
+    }
+
+    eventosSnap.forEach(child => {
+      const evento = child.val();
+      const id_evento = child.key;
+
+      // Excluir si está inscrito o capacidad es 0
+      if (evento.cedula === cedula || eventosInscritos.has(id_evento) || evento.capacidad <= 0) {
+        return;
+      }
+
+      const div = document.createElement('div');
+      div.classList.add('evento-item');
+      div.innerHTML = `
+        <h4>${evento.titulo}</h4>
+        <p>Descripción: ${evento.descripcion}</p>
+        <p>Lugar: ${evento.lugar}</p>
+        <p>Fecha: ${evento.fecha_evento} - Hora: ${evento.hora}</p>
+        <p>Capacidad: ${evento.capacidad}</p>
+        <button class="btn-inscribirse" data-id="${id_evento}">Inscribirse</button>
+      `;
+      listaEventos.appendChild(div);
+    });
+
+    // Eventos "inscribirse"
+    document.querySelectorAll('.btn-inscribirse').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const eventoId = this.getAttribute('data-id');
+        if (!cedula) {
+          alert("Debes estar autenticado para inscribirte.");
+          return;
+        }
+
+        // Disminuir capacidad en evento
+        const eventoRef = ref(database, `eventos/${eventoId}`);
+        get(eventoRef).then(snapshot => {
+          const evento = snapshot.val();
+          if (evento.capacidad <= 0) {
+            alert("Este evento ya no tiene cupos.");
+            return;
+          }
+
+          // Guardar inscripción
+          const inscripcionRef = ref(database, `inscripciones/${eventoId}/${cedula}`);
+          set(inscripcionRef, {
+            cedula,
+            fecha_inscripcion: new Date().toISOString()
+          }).then(() => {
+            // Actualizar capacidad
+            set(eventoRef, {
+              ...evento,
+              capacidad: evento.capacidad - 1
+            }).then(() => {
+              alert("¡Inscripción exitosa!");
+              cargarEventos();
+              cargarEventosInscritos();
+            });
+          }).catch((error) => {
+            console.error("Error al inscribirse:", error);
+            alert("Hubo un error al inscribirse.");
+          });
+        });
+      });
+    });
+  });
+}
+    function cargarEventosInscritos() {
+      if (!cedula) return;
+
+      const inscripcionesRef = ref(database, `inscripciones`);
+      get(inscripcionesRef).then(snapshot => {
+        const eventoIdsInscritos = new Set();
+
+        snapshot.forEach(child => {
+          const id_evento = child.key;
+          const inscritos = child.val();
+          if (inscritos[cedula]) {
+            eventoIdsInscritos.add(id_evento);
+          }
+        });
+
+        if (eventoIdsInscritos.size === 0) return;
+
+        const eventosRef = ref(database, 'eventos');
+        get(eventosRef).then(eventosSnapshot => {
+          listamisEventosInscritos.innerHTML = '';
+
+          eventosSnapshot.forEach(eventoSnap => {
+            const evento = eventoSnap.val();
+            const id = eventoSnap.key;
+
+            if (eventoIdsInscritos.has(id) && evento.cedula !== cedula) {
+              const div = document.createElement('div');
+              div.classList.add('evento-item');
+              div.style.background = '#f1f1f1';
+
+              div.innerHTML = `
+                <h4 style="font-weight: bold;">${evento.titulo}</h4>
+                <p>Descripción: ${evento.descripcion}</p>
+                <p>Lugar: ${evento.lugar}</p>
+                <p>Fecha: ${evento.fecha_evento} - Hora: ${evento.hora}</p>
+                <p>Capacidad: ${evento.capacidad}</p>
+                <p style="color: green; font-weight: bold;">Inscrito</p>
+              `;
+              listamisEventosInscritos.appendChild(div);
+            }
+          });
+        });
+      });
+    }
+
+    cargarEventos();
+    cargarmisEventos();
+    cargarEventosInscritos();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

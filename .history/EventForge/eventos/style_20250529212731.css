@@ -1,0 +1,203 @@
+/* crear_evento.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #fff0de, #4a6ab1);
+    overflow-x: hidden;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+input, textarea {
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+input.valid, textarea.valid {
+  border-color: green;
+}
+
+input.invalid, textarea.invalid {
+  border-color: red;
+}
+
+span.error {
+  color: red;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+p#mensaje {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+body {
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.eventos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.evento-item {
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #4caf50;
+}
+
+.evento-item h4 {
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.evento-item p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-crear-evento form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-crear-evento input,
+.form-crear-evento button,
+.form-crear-evento textarea {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.form-crear-evento textarea {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: auto;
+  max-height: 300px;
+}
+
+.form-crear-evento input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+.form-crear-evento textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+
+.form-crear-evento button {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.form-crear-evento button:hover {
+  background-color: #43a047;
+}
+
+input {
+  border: 2px solid #ccc;
+  padding: 5px;
+}
+
+input.valid {
+  border-color: green;
+}
+
+input.invalid {
+  border-color: red;
+}
+
+span.error {
+  font-size: 0.9em;
+  color: red;
+}
+
+.inscrito-label {
+  color: green;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+#mensaje {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .form-crear-evento input,
+  .form-crear-evento button {
+    font-size: 14px;
+  }
+
+  .evento-item p {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,8 @@
+/* Enlaces del header - asegurar visibilidad */
+.header__nav a {
+  color: var(--color-white) !important;
+}
+
+.header__nav a:hover {
+  color: var(--link-hover-color) !important;
+}

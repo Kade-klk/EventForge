@@ -1,0 +1,295 @@
+/* crear_evento.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #fff0de, #4a6ab1);
+  min-height: 100vh;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+section:nth-child(1) { animation-delay: 0.1s; }
+section:nth-child(2) { animation-delay: 0.2s; }
+section:nth-child(3) { animation-delay: 0.3s; }
+section:nth-child(4) { animation-delay: 0.4s; }
+
+h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #4a6ab1;
+  border-radius: 3px;
+  animation: expand 0.8s ease-out;
+}
+
+@keyframes expand {
+  from { width: 0; }
+  to { width: 60px; }
+}
+
+.eventos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.evento-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 18px;
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transform: scale(0.95);
+  opacity: 0;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transition: all 0.3s ease;
+}
+
+@keyframes popIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.evento-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+}
+
+.evento-item h4 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.evento-item p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #555;
+}
+
+.form-crear-evento form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-crear-evento input,
+.form-crear-evento button,
+.form-crear-evento textarea {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-crear-evento textarea {
+  height: auto;
+  min-height: 120px;
+  max-height: 200px;
+}
+
+.form-crear-evento input:focus,
+.form-crear-evento textarea:focus {
+  border-color: #4a6ab1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 106, 177, 0.2);
+}
+
+.form-crear-evento button {
+  background-color: #4a6ab1;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(74, 106, 177, 0.3);
+}
+
+.form-crear-evento button:hover {
+  background-color: #3a5a9e;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(74, 106, 177, 0.4);
+}
+
+input.valid, textarea.valid {
+  border-color: #4caf50;
+  animation: pulseGreen 1s ease;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+}
+
+input.invalid, textarea.invalid {
+  border-color: #e53935;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+span.error {
+  color: #e53935;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.inscrito-label {
+  color: #4caf50;
+  font-weight: bold;
+  margin-top: 5px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+#mensaje {
+  margin-top: 15px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Botón de inscripción */
+.btn-inscribirse {
+  padding: 8px 16px;
+  background: #4a6ab1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-inscribirse:hover {
+  background: #3a5a9e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Decoración */
+.decorative-circle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 240, 222, 0.3);
+  z-index: -1;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -10px); }
+  50% { transform: translate(-10px, 10px); }
+  75% { transform: translate(10px, 10px); }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    gap: 25px;
+  }
+
+  section {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .form-crear-evento input,
+  .form-crear-evento button,
+  .form-crear-evento textarea {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .evento-item {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  .container {
+    gap: 20px;
+  }
+
+  section {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .evento-item p {
+    font-size: 14px;
+  }
+}

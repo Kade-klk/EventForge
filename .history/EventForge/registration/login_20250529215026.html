@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Parcha2</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <form action="">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input id="username-login" type="text" placeholder="Username" required>
+                    <i class='bx bx-user'></i>
+                </div>
+                <div id="mensajeUsernameLog" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="input-box">
+                    <input id="password-login" type="password" placeholder="Password" required>
+                    <i class='bx bx-lock'></i>
+                </div>
+                <div id="mensajePasswordLog" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="forgot-link">
+                    <a href="forgot-pass">¿Olvidaste tu contraseña?</a>
+                </div>
+                <span></span>
+                <span></span>
+                <button id="button-login" type="button" class="btn">Login</button>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <form action="#">
+                <h1>Registro</h1>
+                <div class="input-box">
+                    <input id="cedula-register" type="text" oninput="validar_cedula_registro(this, function(){})" placeholder="Cédula" required maxlength="10">
+                    <i class='bx bx-id-card'></i>
+                </div>
+                <div id="mensajeCedula" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="input-box">
+                    <input id="username-register" type="text" oninput="validar_username_registro(this, function(){})" placeholder="Username" required maxlength="20">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div id="mensajeUsername" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="input-box">
+                    <input id="email-register" type="email" oninput="validar_email_registro(this, function(){})" placeholder="Email" required maxlength="30">
+                    <i class='bx bx-envelope'></i>
+                </div>
+                <div id="mensajeEmail" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="input-box">
+                    <input id="telefono-register" type="text" oninput="validar_telefono_registro(this, function(){})" placeholder="Teléfono" required maxlength="10">
+                    <i class='bx bx-phone'></i>
+                </div>
+                <div id="mensajeTelefono" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <div class="input-box">
+                    <input id="password-register" type="password" oninput="validar_contraseña_registro(this, function(){})" placeholder="Contraseña" required maxlength="20">
+                    <i class='bx bx-lock'></i>
+                </div>
+                <div id="mensajePassword" style="color: red; font-size: 12px; margin-top: 2px;"></div>
+                <button id="button-register" type="submit" class="btn">Registrarse</button>
+            </form>
+        </div>
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>¡Hola, Bienvenido!</h1>
+                <p>¿No tienes una cuenta?</p>
+                <button class="btn register-btn">Registrarse</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>¡Bienvenido de nuevo!</h1>
+                <p>¿Ya tienes una cuenta?</p>
+                <button class="btn login-btn">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+    <!-- Firebase App y Database (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
